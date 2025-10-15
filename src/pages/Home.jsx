@@ -51,7 +51,7 @@ export default function Home() {
           id="nickName-input"
           name="nickName"
           type="text"
-          placeholder="닉네임을 입력하세요."
+          placeholder="닉네임을 입력하세요!"
           value={nickName}
           onChange={(e) => setNickName(e.target.value)}
           minlength="2"
