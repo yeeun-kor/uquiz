@@ -6,28 +6,31 @@ export default function Home() {
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
-  //닉네임 입력 버튼 분기처리
+  //유효성 검사 메세지
+  const InvalidInputMessage = [""];
+  //유효성 검사 로직
+  const handleInvalidInput = (message) => {
+    alert(message);
+    inputRef.current.focus();
+    setNickName("");
+  };
+
+  //닉네임 입력 submit
   const handleStartBtn = (e) => {
     e.preventDefault();
     //닉네임 빈문자열 검사
     if (!nickName.trim()) {
-      alert("닉네임을 입력해주세요 ‼");
-      inputRef.current.focus();
-      setNickName("");
+      handleInvalidInput("닉네임을 입력해주세요 ‼");
       return;
     }
     //공백 포함 검사
     if (nickName.includes(" ")) {
-      alert("닉네임에 공백을 포함할 수 없어요🌀");
-      inputRef.current.focus();
-      setNickName("");
+      handleInvalidInput("닉네임에 공백을 포함할 수 없어요🌀");
       return;
     }
     //닉네임 길이 검사
     if (nickName.length < 2 || nickName.length > 12) {
-      alert("닉네임인 2자~12자 이내로 작성해주세요👀");
-      inputRef.current.focus();
-      setNickName("");
+      handleInvalidInput("닉네임인 2자~12자 이내로 작성해주세요👀");
       return;
     } else {
       navigate(`/quiz/${nickName}`);
