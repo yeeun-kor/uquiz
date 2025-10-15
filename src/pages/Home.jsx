@@ -6,8 +6,13 @@ export default function Home() {
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
-  //유효성 검사 메세지
-  const InvalidInputMessage = [""];
+  //유효성 검사 메세지 상수로 분리화
+  const INVALID_MESSAGES = {
+    EMPTY: "닉네임을 입력해주세요 ‼",
+    SPACE: "닉네임에 공백을 포함할 수 없어요🌀",
+    LENGTH: "닉네임은 2자~12자 이내로 작성해주세요👀",
+  };
+
   //유효성 검사 로직
   const handleInvalidInput = (message) => {
     alert(message);
@@ -20,17 +25,17 @@ export default function Home() {
     e.preventDefault();
     //닉네임 빈문자열 검사
     if (!nickName.trim()) {
-      handleInvalidInput("닉네임을 입력해주세요 ‼");
+      handleInvalidInput(INVALID_MESSAGES.EMPTY);
       return;
     }
     //공백 포함 검사
     if (nickName.includes(" ")) {
-      handleInvalidInput("닉네임에 공백을 포함할 수 없어요🌀");
+      handleInvalidInput(INVALID_MESSAGES.SPACE);
       return;
     }
     //닉네임 길이 검사
     if (nickName.length < 2 || nickName.length > 12) {
-      handleInvalidInput("닉네임인 2자~12자 이내로 작성해주세요👀");
+      handleInvalidInput(INVALID_MESSAGES.LENGTH);
       return;
     } else {
       navigate(`/quiz/${nickName}`);
@@ -38,7 +43,6 @@ export default function Home() {
   };
   return (
     <main>
-      {/* onSubmit={handleStartBtn} 형태로 이벤트를 연결하는 게 React 방식 */}
       <form onSubmit={handleStartBtn}>
         <h1>UQuiz?</h1>
         <label htmlFor="nickName-input">닉네임 : </label>
